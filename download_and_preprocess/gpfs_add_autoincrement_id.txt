@@ -1,0 +1,12 @@
+# since I forgot to do this when running create_db.py
+# I used sqlite3 gpfsN_bigrams.db to connect to each database (N: 1, 2, 3)
+# And then executed the following commands
+# This created an autoincrement id on the tables
+# I might not need it but it's good to have this in the back pocket
+# I also created indexes to speed up searches
+
+create table bigrams_counts_id (ID integer primary key autoincrement, FirstWord, SecondWord, Count);
+insert into bigrams_counts_id (FirstWord, SecondWord, Count) SELECT FirstWord, SecondWord, Count FROM bigram_counts;
+
+CREATE INDEX index_bigrams_counts_id_FirstWord ON bigrams_counts_id (FirstWord);
+CREATE INDEX index_bigrams_counts_id_SecondWord ON bigrams_counts_id (SecondWord);
