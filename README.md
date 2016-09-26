@@ -5,4 +5,4 @@ I took a client-server approach this mumbler project. The server environment con
 
 This picture probably does a better job of explaining my mumbler implementation than I ever could in my ESL.
 
-![mumbler overview]()
+![mumbler overview](https://github.com/jhabib/midsmumbler/blob/master/midsmumbler.png?raw=true "mumbler overview")
