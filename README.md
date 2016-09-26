@@ -34,6 +34,8 @@ Change to the right directory:
 Run the client using **python2.7**:
 * `python2.7 mumbler_client.py terminator 5`
 
+The mumbler might take a **few** seconds before printing out the results.
+
 NOTE: 
 The client (mumbler_client.py) has a hard-coded server IP and port list that points to the public (eth1) IP addresses of the servers. Since these are public IPs you can run the client on your local machine as long as you have Python 2.7.9 and a few dependencies: requests, flask, flask-restful, sqlalchemy. You can pip install the dependencies. Essentially, anything that's an import in the mumbler_client.py should be available on your machine.
 
@@ -78,6 +80,7 @@ After all this pre-processing, each database table occupied ~1.7GB of space on d
 Since RedHat fought me every step of the way in this project I ran out of time to work on some optimizations I had thought of.
 * Currently, each server sends back the results to the client for each word. These results include ID, FirstWord, SecondWord and Count. Since I have a unique ID for each tuple in there, I can only send the ID and Count back to the Client. The client can then query the right server based on this unique ID to get the SecondWord. And then repeat the process of selection.
 * The process of weighted selection can be distributed to each gpfs node as well. Essentially, each node will send back the sum of its counts to the client. The client will build a range summing together the sums and pick a random number in that range. The client will send the random number to each node, along with an index that each node can use to calculate the range that belongs to it. Each node would then either return a second-word or nothing. Since there is one random number and a unique subset of total range mapped to each node, I would get back only one word. The process would then be repeated until a chain was built.
+These should result in lower network traffic between client and servers.
 
 ## Broken Dreams
 Initially I tried working directly with the unadulterated, unzipped .txt files. This proved to be a slow approach because of the reasons below:
@@ -86,5 +89,6 @@ Initially I tried working directly with the unadulterated, unzipped .txt files. 
 * While these offsets can be used for binary search over the files, loading the offsets files into memory needed ~4-5 seconds. 
 * A modified binary search that decrements the range by the number of bytes read in the last line (from a random byte position) is slow for large files. Essentially, in this approach, I tried finding a line starting at a random **byte** offset and then looking for a line there. 
 * I tried Roulette Selection with Stochastic Acceptance to pick the next word but that approach was slow to the iterative approach I ended up using. 
+
 You can see how this went in the `broken_mumbler.py` file under the `broken_dreams` folder. I didn't really scale this approach to all files.
 
