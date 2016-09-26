@@ -39,6 +39,13 @@ The client (mumbler_client.py) has a hard-coded server IP and port list that poi
 
 If you start the servers with their eth0 IP addresses you will only be able to access the mumbler from the SoftLayer network. If you do that you will also need to edit the server IP addresses in the mumbler_client.py on lines [36, 37, 38]. Essentially the statement that declares `servers = ['', '', '']`. With this, the mumbler will run a little faster but won't be accessible over the public network. You will need to ssh into one of the gpfs nodes and then run the client. The three servers must be started manually before you can run the client.
 
+### Project structure on SoftLayer
+* There are three nodes gpfs1, gpfs2 and gpfs3.
+* The preprocessed files are in the directory `/gpfs/gpfsfpo/bigrams/` along with the `zip_downloader.py` (DO NOT RUN) script
+* The final databases are in the directory `/gpfs/gpfsfpo/bigrams/db` along with the `create_db.py` (DO NOT RUN), `mumbler_server.py` and `mumbler_client.py`
+The files above must be run from the folder where they reside. 
+
+
 ## Preprocessing and building the database
 I used the steps below to download and preprocess the files. This step came before I wrote the client-server thing.
 
