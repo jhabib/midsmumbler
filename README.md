@@ -45,6 +45,8 @@ If you start the servers with their eth0 IP addresses you will only be able to a
 * The final databases are in the directory `/gpfs/gpfsfpo/bigrams/db` along with the `create_db.py` (DO NOT RUN), `mumbler_server.py` and `mumbler_client.py`
 The files above must be run from the folder where they reside. 
 
+**NOTE**: 
+If for some reason these instructions fail, please email me at mjawadhabib@gmail.com or call me at 702.927.6157 and I will get the server running. You can then hit that with the client from a public network.
 
 ## Preprocessing and building the database
 I used the steps below to download and preprocess the files. This step came before I wrote the client-server thing.
